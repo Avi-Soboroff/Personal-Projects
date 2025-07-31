@@ -13,3 +13,15 @@ function getCPUChoice() {
     }
     return choice; //returns the choice
 }
+
+let human = prompt("Enter your choice: rock, paper, or scissors"); //prompts the user for their choice
+//function to get the human's choice and validate it
+function getHumanChoice(userChoice) {
+    userChoice = userChoice.toLowerCase(); //converts the input to lowercase
+    if (userChoice === "rock" || userChoice === "paper" || userChoice === "scissors") {
+        return userChoice; //if the input is valid, returns the choice
+    } else {
+        alert("Invalid choice. Please enter rock, paper, or scissors."); //if the input is invalid, alerts the user
+        return getHumanChoice(prompt("Enter your choice: rock, paper, or scissors")); //re-prompts for a valid choice
+    }
+} 
