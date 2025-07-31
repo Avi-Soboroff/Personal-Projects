@@ -1,1 +1,1 @@
-# Personal-Projects
+Rock Paper Scissors project idea is from The Odin Project
