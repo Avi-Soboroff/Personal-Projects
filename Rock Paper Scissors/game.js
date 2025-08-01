@@ -1,5 +1,3 @@
-
-
 //function to get the computers choice for rock, paper, or scissors
 function getCPUChoice() {
     let choice = "";
@@ -28,39 +26,42 @@ function getHumanChoice(userChoice) {
 } 
 
 //function to play the game
-function playGame() {
-    let humanScore = 0;
-    let cpuScore = 0;
-    //function to play a round of rock, paper, scissors
-    function playRound(humanChoice, cpuChoice) {
-        let humanChoiceLower = humanChoice.toLowerCase(); //converts the human's choice to lowercase
-        let cpuChoiceLower = cpuChoice.toLowerCase(); //converts the CPU's choice to lowercase
-        //first check if its a tie
-        if (humanChoice === cpuChoice) {
-            console.log(`It's a tie! You both picked ${humanChoice}.`);
-        }
-        else if ((humanChoice === "rock" && cpuChoice === "scissors") || 
-                (humanChoice === "paper" && cpuChoice === "rock") || 
-                (humanChoice === "scissors" && cpuChoice === "paper")) {
-            humanScore++; //if the human wins, increment the human's score
-            console.log(`You win! ${humanChoice} beats ${cpuChoice}.`);
-        } else {
-            cpuScore++; //if the CPU wins, increment the CPU's score
-            console.log(`You lose! ${cpuChoice} beats ${humanChoice}.`);
-        }
+let humanScore = 0;
+let cpuScore = 0;
+//function to play a round of rock, paper, scissors
+function playRound(humanChoice, cpuChoice) {
+    let humanChoiceLower = humanChoice.toLowerCase(); //converts the human's choice to lowercase
+    let cpuChoiceLower = cpuChoice.toLowerCase(); //converts the CPU's choice to lowercase
+    //first check if its a tie
+    if (humanChoice === cpuChoice) {
+        console.log(`It's a tie! You both picked ${humanChoice}.`);
     }
-    //loop to play 5 rounds
-    for (let round = 1; round <= 5; round++) {
-        console.log(`Round ${round}:`);
-        let humanChoice = getHumanChoice(prompt("Enter your choice: rock, paper, or scissors")); //gets the human's choice
-        if (!humanChoice) {
-            console.log("Game cancelled.");
-            return; //if the user cancels, exit the game
-        }
-        let cpuChoice = getCPUChoice(); //gets the CPU's choice
-        playRound(humanChoice, cpuChoice); //plays a round with the choices
-        console.log(`Score: You ${humanScore} - CPU ${cpuScore}`); //prints the score after each round
+    else if ((humanChoice === "rock" && cpuChoice === "scissors") || 
+            (humanChoice === "paper" && cpuChoice === "rock") || 
+            (humanChoice === "scissors" && cpuChoice === "paper")) {
+        humanScore++; //if the human wins, increment the human's score
+        console.log(`You win! ${humanChoice} beats ${cpuChoice}.`);
+    } else {
+        cpuScore++; //if the CPU wins, increment the CPU's score
+        console.log(`You lose! ${cpuChoice} beats ${humanChoice}.`);
     }
+    console.log(`Score: You: ${humanScore}; Computer: ${cpuScore}`);
 }
 
-playGame();
+//setting up the game buttons and gameplay
+const humanSelect = "";
+const rock = document.querySelector("#Rock");
+const paper = document.querySelector("#Paper");
+const scissors = document.querySelector("#Scissors");
+//making the human choice: Rock
+rock.addEventListener("click", () => { 
+    humanSelect = getHumanChoice("Rock");
+});
+//making the human choice: paper
+paper.addEventListener("click", () => {
+    humanSelect = getHumanChoice("Paper");
+});
+//making the human choice: scissors
+scissors.addEventListener("click", () => {
+    humanSelect = getHumanChoice("Scissors");
+});
