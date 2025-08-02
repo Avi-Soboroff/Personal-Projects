@@ -25,6 +25,34 @@ function getHumanChoice(userChoice) {
     }
 } 
 
+//helper function to display the results of each round
+function getResults(message) {
+    const results = document.querySelector("#results"); //gets results id from the html doc
+    const p = document.createElement("p");
+    p.textContent = message;
+    results.appendChild(p);
+}
+
+//helper function that will assist in clearing the results every round
+function removeResults() {
+    const words = document.querySelector("#results");
+    words.replaceChildren();
+}
+
+//function to determine if game is over
+function isGameOver(yourScore, computerScore) {
+    if (yourScore >= 5 || computerScore >= 5) {
+        return true;
+    }
+    return false;
+}
+
+//function to display the winning page
+function winningPage() {
+    const buttons = document.querySelector(".gamepage");
+    buttons.replaceChildren();
+}
+
 //function to play the game
 let humanScore = 0;
 let cpuScore = 0;
@@ -33,35 +61,55 @@ function playRound(humanChoice, cpuChoice) {
     let humanChoiceLower = humanChoice.toLowerCase(); //converts the human's choice to lowercase
     let cpuChoiceLower = cpuChoice.toLowerCase(); //converts the CPU's choice to lowercase
     //first check if its a tie
+    removeResults();
     if (humanChoice === cpuChoice) {
-        console.log(`It's a tie! You both picked ${humanChoice}.`);
+        getResults(`It's a tie! You both picked ${humanChoice}.`);
     }
     else if ((humanChoice === "rock" && cpuChoice === "scissors") || 
             (humanChoice === "paper" && cpuChoice === "rock") || 
             (humanChoice === "scissors" && cpuChoice === "paper")) {
         humanScore++; //if the human wins, increment the human's score
-        console.log(`You win! ${humanChoice} beats ${cpuChoice}.`);
-    } else {
-        cpuScore++; //if the CPU wins, increment the CPU's score
-        console.log(`You lose! ${cpuChoice} beats ${humanChoice}.`);
+        getResults(`You win! ${humanChoice} beats ${cpuChoice}.`);
     }
-    console.log(`Score: You: ${humanScore}; Computer: ${cpuScore}`);
+    else {
+        cpuScore++; //if the CPU wins, increment the CPU's score
+        getResults(`You lose! ${cpuChoice} beats ${humanChoice}.`);
+    }
+    getResults(`Score: You: ${humanScore}; Computer: ${cpuScore}`);
+    //now check and see if the gme is over
+    if (isGameOver(humanScore, cpuScore)) {
+        winningPage();
+        getResults(`Final Score: ${humanChoice}: ${humanScore}-${cpuScore}: ${cpuChoice}`);
+        if (humanScore > cpuScore) {
+            getResults("You win!!!");
+        }
+        else {
+            getResults("You lose :( Womp Womp");
+        }
+    }
 }
 
 //setting up the game buttons and gameplay
-const humanSelect = "";
+let humanSelect = "";
+let cpuSelect = "";
 const rock = document.querySelector("#Rock");
 const paper = document.querySelector("#Paper");
 const scissors = document.querySelector("#Scissors");
 //making the human choice: Rock
 rock.addEventListener("click", () => { 
     humanSelect = getHumanChoice("Rock");
+    cpuSelect = getCPUChoice();
+    playRound(humanSelect, cpuSelect);
 });
 //making the human choice: paper
 paper.addEventListener("click", () => {
     humanSelect = getHumanChoice("Paper");
+    cpuSelect = getCPUChoice();
+    playRound(humanSelect, cpuSelect);
 });
 //making the human choice: scissors
 scissors.addEventListener("click", () => {
     humanSelect = getHumanChoice("Scissors");
+    cpuSelect = getCPUChoice();
+    playRound(humanSelect, cpuSelect);
 });
