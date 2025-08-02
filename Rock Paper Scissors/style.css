@@ -1,0 +1,13 @@
+body {
+    background-color: lightblue;
+}
+
+.gamepage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#results {
+    text-align: center;
+}
